@@ -64,6 +64,19 @@ class CouponController{
         }
     }
 
+    async applyCoupon(req, res, next){
+        try{
+
+            const isCouponExist = await Coupon.findOne({ code: req.body.code, isapplied: false }).select("amount");
+            if(isCouponExist) return res.status(200).json({ coupon: isCouponExist })
+
+            return res.status(422).json({ message: 'Invalid Coupon' });   
+
+        }catch(err){
+            next(err)
+        }
+    }
+
 }
 
 module.exports = new CouponController();   

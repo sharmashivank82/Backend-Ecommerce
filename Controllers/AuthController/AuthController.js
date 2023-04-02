@@ -61,11 +61,11 @@ class AuthController{
             try{
                 payload = jwt.verify(token, config.JWT_SECRET);
             }catch(err){
-                return res.statsu(422).json({ message: 'INvalid Token' })
+                return res.status(422).json({ message: 'INvalid Token' })
             }
-            const isUser = await User.findOne({ email: payload.email });
-            if(isUser) return res.status(200).json({ message: 'Token passes' })
-            return res.statsu(422).json({ message: 'INvalid Token' })
+            const isUser = await User.findOne({ email: payload.email }).select("-password");
+            if(isUser) return res.status(200).json({ user: isUser })
+            return res.status(422).json({ message: 'INvalid Token' })
         }catch(err){
             next(err)
         }

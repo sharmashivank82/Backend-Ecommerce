@@ -54,13 +54,13 @@ class ProductController{
     }
 
     async uploaditem(req, res, next){
-        console.log( req.file );
+        console.log( 'req.file is ', req.file );
 
         // for Linux
         // req.file.path = req.file.path.split( "/uploads/" )[ 1 ];
 
         // for windows
-        req.file.path = req.file.path.split( "uploads\\" )[ 1 ];
+        req.file['path'] = req.file?.path?.split( "uploads\\" )[ 1 ];
 
         return res.status(200).json({ media: req.file })
     }

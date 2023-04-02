@@ -27,7 +27,7 @@ class AdminMiddleware{
           cb(null, config.UPLOAD_PATH)
         },
         filename: function (req, file, cb) {
-            console.log({ file })
+          console.log({ file })
           const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
           cb(null, file.fieldname + '-' + uniqueSuffix + file.originalname)
         }
